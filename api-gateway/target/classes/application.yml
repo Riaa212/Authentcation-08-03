@@ -1,0 +1,21 @@
+server:
+  port: 8089
+
+spring:
+   cloud:
+      gateway:
+        routes:
+          - id : product-service
+            uri : lb://SERVICEPRODUCT
+            predicates:
+              - Path=/product/**
+            filters:
+              - Filter
+              - StripPrefix=0
+          - id : jwt-service
+            uri : lb://JWTSPRINGSECURITY
+            predicates:
+              - Path=/jwt/**
+            filters:
+              - Filter
+              - StripPrefix=0
